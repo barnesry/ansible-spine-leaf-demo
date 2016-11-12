@@ -1,0 +1,14 @@
+underlay:
+    local:
+        asn: 60012
+    neighbors:
+      - interface: ge-0/0/1
+        name: SPINE02
+        asn: 60002
+        peer_ip: 171.0.0.6
+        local_ip: 171.0.0.7
+      - interface: ge-0/0/2
+        name: SPINE01
+        asn: 60001
+        peer_ip: 171.0.0.4
+        local_ip: 171.0.0.5

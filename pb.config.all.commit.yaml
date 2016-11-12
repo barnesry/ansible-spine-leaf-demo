@@ -1,0 +1,23 @@
+---
+# This playbook will generate and apply configuration to all of the devices
+
+- include: pb.config.all.yaml
+
+- name: Apply configuration
+  hosts: juniper
+  connection: local
+  gather_facts: no
+  roles:
+    - Juniper.junos
+  tasks:
+    - name: Pushing config ... please wait
+      junos_install_config:
+        host: "{{ ansible_ssh_host }}"
+        port: "{{ ansible_ssh_port }}"
+        user: "{{ ansible_ssh_user }}"
+        # ensure we've loaded the insecure_private_key in ssh-agent rather than use passwd
+        # ssh-add ~/.vagrant.d/insecure_private_key
+        #passwd: "{{ junos_pwd_clear }}"
+        file: "{{ junos_conf }}"
+        overwrite: yes
+        replace: no
