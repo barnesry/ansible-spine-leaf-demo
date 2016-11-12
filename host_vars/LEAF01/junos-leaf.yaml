@@ -1,0 +1,4 @@
+interfaces:
+  - interface: ge-0/0/3
+    description: to_srv1
+    local_ip: 101.101.101.1

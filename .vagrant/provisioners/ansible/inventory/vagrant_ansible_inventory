@@ -4,8 +4,8 @@ LEAF01 ansible_ssh_host=127.0.0.1 ansible_ssh_port=2202 ansible_ssh_user='vagran
 LEAF02 ansible_ssh_host=127.0.0.1 ansible_ssh_port=2204 ansible_ssh_user='vagrant' ansible_ssh_private_key_file='/Users/barnesry/.vagrant.d/insecure_private_key'
 SPINE01 ansible_ssh_host=127.0.0.1 ansible_ssh_port=2222 ansible_ssh_user='vagrant' ansible_ssh_private_key_file='/Users/barnesry/.vagrant.d/insecure_private_key'
 SPINE02 ansible_ssh_host=127.0.0.1 ansible_ssh_port=2201 ansible_ssh_user='vagrant' ansible_ssh_private_key_file='/Users/barnesry/.vagrant.d/insecure_private_key'
-srv1 ansible_ssh_host=127.0.0.1 ansible_ssh_port=2203 ansible_ssh_user='vagrant' ansible_ssh_private_key_file='/Users/barnesry/git/ansible-demo-ip-fabric/.vagrant/machines/srv1/virtualbox/private_key'
-srv2 ansible_ssh_host=127.0.0.1 ansible_ssh_port=2200 ansible_ssh_user='vagrant' ansible_ssh_private_key_file='/Users/barnesry/git/ansible-demo-ip-fabric/.vagrant/machines/srv2/virtualbox/private_key'
+srv1 ansible_ssh_host=127.0.0.1 ansible_ssh_port=2203 ansible_ssh_user='vagrant' ansible_ssh_private_key_file='/Users/barnesry/git/ansible-spine-leaf-demo/.vagrant/machines/srv1/virtualbox/private_key'
+srv2 ansible_ssh_host=127.0.0.1 ansible_ssh_port=2200 ansible_ssh_user='vagrant' ansible_ssh_private_key_file='/Users/barnesry/git/ansible-spine-leaf-demo/.vagrant/machines/srv2/virtualbox/private_key'
 
 [spine]
 SPINE01

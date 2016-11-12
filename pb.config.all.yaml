@@ -10,6 +10,7 @@
   roles:
     - junos-system
     - junos-ebgp
+    - junos-leaf
     - build-config
 
 - name: Create configuration for Spine devices

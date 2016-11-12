@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 
 # Demo Ansible project to build an IP fabric using EBGP.  
 
@@ -40,3 +41,7 @@ To generate configuration for all devices and push them on devices
 ```
 ansible-playbook -i devices.ini pb.config.all.commit.yaml
 ```
+=======
+# ansible-spine-leaf-demo
+Build virtual 4 member spine &amp; leaf using Ansible, Vagrant, and vSRX
+>>>>>>> origin/master

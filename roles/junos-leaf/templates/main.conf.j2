@@ -1,0 +1,12 @@
+interfaces {
+{% for interface in interfaces %}
+    {{ interface.interface }} {
+        unit 0 {
+            description "{{ interface.description }}";
+            family inet {
+                address {{ interface.local_ip }}/24;
+            }
+        }
+    }
+{% endfor %}
+}

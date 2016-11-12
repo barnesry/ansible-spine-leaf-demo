@@ -29,17 +29,27 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
     config.ssh.insert_key = false
     config.ssh.username = "vagrant"
-
+    
     # Servers for traffic generation
     (1..2).each do |id|
 
         srv_name  = ( "srv" + id.to_s ).to_sym
         
-        # set the network starting at 100 + id (ie. id of 1 = 101.101.101.0)
-        net_id = 100 + id
-        net = "#{net_id}."*3 + "0"              # eg. 101.101.101.0
-        router_ip = "#{net_id}."*3 + "1"        # eg. 101.101.101.1
-        server_ip = "#{net_id}."*3 + "2"        # eg. 101.101.101.2
+        if id == 2
+            # set the network starting at 100 + id (ie. id of 1 = 101.101.101.0)
+            net_id = 100 + id
+            net = "#{net_id}."*3 + "0"              # eg. 102.102.102.0
+            router_ip = "#{net_id}."*3 + "1"        # eg. 102.102.102.1
+            server_ip = "#{net_id}."*3 + "2"        # eg. 102.102.102.2
+            remote_net = "#{net_id-1}."*3 + "0"     # eg. 101.101.101.0
+        elsif id == 1
+            # set the network starting at 100 + id (ie. id of 1 = 101.101.101.0)
+            net_id = 100 + id
+            net = "#{net_id}."*3 + "0"              # eg. 101.101.101.0
+            router_ip = "#{net_id}."*3 + "1"        # eg. 101.101.101.1
+            server_ip = "#{net_id}."*3 + "2"        # eg. 101.101.101.2
+            remote_net = "#{net_id+1}."*3 + "0"     # eg. 102.102.102.0
+        end
 
         ##########################
         ## Server          #######
@@ -58,9 +68,9 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 	        srv.ssh.shell = "bash -c 'BASH_ENV=/etc/profile exec bash'"
 
 	    srv.vm.provision "shell",
-            inline: "sudo route add -net #{net} netmask 255.255.255.0 gw #{router_ip}
+            inline: "sudo route add -net #{remote_net} netmask 255.255.255.0 gw #{router_ip}
                 sudo apt-get -y update
-                sudo apt-get -y install traceroute curl telnet
+                sudo apt-get -y install traceroute curl telnet paris-traceroute
                 sudo apt-get clean"
        end
     end
