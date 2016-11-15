@@ -179,7 +179,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
             # ge-0/0/2
             vsrx.vm.network 'private_network', auto_config: false, nic_type: 'virtio', virtualbox__intnet: "spine#{id}_to_leaf#{alt_leaf_id}"
             # Management port - ge-0/0/3
-            vsrx.vm.network 'private_network', auto_config: false, nic_type: 'virtio', virtualbox__intnet: "vboxnet0"
+            vsrx.vm.network 'private_network', auto_config: false, nic_type: 'virtio', type: "dhcp"
         end
     end
 
@@ -223,7 +223,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
             # ge-0/0/3
             vsrx.vm.network 'private_network', auto_config: false, nic_type: 'virtio', virtualbox__intnet: "server#{id}_to_leaf#{id}"
             # Management port - ge-0/0/4
-            vsrx.vm.network 'private_network', auto_config: false, nic_type: 'virtio', virtualbox__intnet: "vboxnet0"
+            vsrx.vm.network 'private_network', auto_config: false, nic_type: 'virtio', type: "dhcp"
         end
     end
 
@@ -240,15 +240,13 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
                 "server"  => [ "server1", "server2" ],
                 "juniper:children" => [ "spine", "leaf" ],
                 "all:children" => [ "juniper", "servers" ],
-                "juniper:vars" => {  "ansible_ssh_user" => "vagrant",
-                                     "ansible_ssh_password" => "junos123",
-                                     "junos_ssh_user" => "root",
+                "leaf:vars" => { "mgmt_port" => "ge-0/0/4" },
+                "spine:vars" => { "mgmt_port" => "ge-0/0/3" },
+                "juniper:vars" => {  "junos_ssh_user" => "root",
                                      "junos_pwd_clear" => "junos123",
                                      "netconf_port" =>  "830",
-                                     "mgmt_port"    =>  "em0",
-                                     "mgmt_sub_mask"    =>  "23",
-                                     "mgmt_sub_gw"      =>  "0.0.0.0",
-                                     "junos_host"       => "0.0.0.0" 
+                                     "mgmt_sub_mask"    =>  "24",
+                                     "mgmt_sub_gw"      =>  "0.0.0.0" 
                                   }   
             }
             # we'll use the dynamic inventory in .vagrant/provisioners/anisble/inventory instead'
@@ -259,3 +257,13 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
         end
     end
 end
+
+                # "leaf" => [ "LEAF01" => { "junos_host" => "192.168.56.101",
+                #                           "loopback_ip" => "1.1.1.1",
+                #                           "mgmt_port" => "ge-0/0/3" 
+                #                         },
+                #             "LEAF02" => { "junos_host" => "192.168.56.102",
+                #                           "loopback_ip" => "1.1.1.2",
+                #                           "mgmt_port" => "ge-0/0/3" 
+                #                         }
+                #              ],

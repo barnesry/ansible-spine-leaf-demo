@@ -53,7 +53,7 @@ interfaces {
     {{ mgmt_port }} {
         unit 0 {
             family inet {
-              address {{ junos_host }}/{{ mgmt_sub_mask }};
+              address {{ host.junos_host }}/{{ mgmt_sub_mask }};
             }
         }
     }
