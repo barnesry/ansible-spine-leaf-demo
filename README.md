@@ -1,6 +1,31 @@
-<<<<<<< HEAD
-
 # Demo Ansible project to build an IP fabric using EBGP.  
+
+//                     +---------+              +---------+
+//                     |         |              |         |
+//                     | SPINE01 |              | SPINE02 |
+//                     |         |              |         |
+//                     +---------+              +----+----+
+//                  ge-0/0/1|     X  ge-0/0/2  X     | ge-0/0/1
+//                          |       X        X       |
+//                          |         X    X         |
+//                          |           XX           |
+//                          |          X  X          |
+//                  ge-0/0/1|        X      X        | ge-0/0/1
+//  ---------+         +---------+ X          X +----+----+
+// |         |         |         |   ge-0/0/2   |         |
+// | toolsVM |         | SPINE01 |              | SPINE02 |
+// |         |         |         |              |         |
+// +---------+         +----+----+              +----+----+
+//                          | ge-0/0/3               | ge-0/0/3
+//                          |                        |
+//                          |                        |
+//                          | eth1                   | eth1
+//                     +----+----+              +----+----+
+//                     |         |              |         |
+//                     |  svr1   |              |  svr2   |
+//                     |         |              |         |
+//                     +---------+              +---------+
+
 
 This project is leveraging **roles** to build the configuration.
 Each role will generate a part of the configuration.  
@@ -29,6 +54,11 @@ junos-ebgp will generate all configuration to enable EBGP inside an IP Fabric.
 > Most variables are specific to each device and need to be provided per device,
 > You can find an example inside the role
 
+### junos-leaf - configuration template
+
+junos-leaf will generate configuration specific to leaf nodes (ie. host-facing ports)
+
+
 # Playbooks available
 
 To generate configuration for all leaf or spine (configuration are not push to device)
@@ -44,4 +74,3 @@ ansible-playbook -i devices.ini pb.config.all.commit.yaml
 =======
 # ansible-spine-leaf-demo
 Build virtual 4 member spine &amp; leaf using Ansible, Vagrant, and vSRX
->>>>>>> origin/master
